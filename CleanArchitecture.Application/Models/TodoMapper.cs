@@ -13,7 +13,7 @@ namespace CleanArchitecture.Application.Models
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            return AutoMapperConfigurator.Mapper().Map<Todo>(request);
+            return Mapper.Mapper().Map<Todo>(request);
         }
 
         public static TodoResponseModel ToDetails(this Todo todo)
@@ -21,7 +21,7 @@ namespace CleanArchitecture.Application.Models
             if(todo == null)
                 throw new ArgumentException(nameof(todo));
 
-            return AutoMapperConfigurator.Mapper().Map<TodoResponseModel>(todo);
+            return Mapper.Mapper().Map<TodoResponseModel>(todo);
         }
     }
 }

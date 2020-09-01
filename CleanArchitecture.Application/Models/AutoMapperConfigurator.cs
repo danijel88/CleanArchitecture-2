@@ -9,13 +9,30 @@ namespace CleanArchitecture.Application.Models
 {
     public static class AutoMapperConfigurator
     {
-        public static IMapper Mapper()
+        private static void Load(IMapperConfigurationExpression cfg, Type[] types)
         {
-            MapperConfiguration configuration = MapperConfiguration();
+            LoadIMapFromMappings(cfg, types);
+            LoadIMapToMappings(cfg, types);
+        }
 
-            Mapper mapper = new Mapper(configuration);
+        private static void LoadIMapFromMappings(IMapperConfigurationExpression cfg, Type[] types)
+        {
+            var maps = (from t in types
+                from i in t.GetInterfaces()
+                where i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>) && !t.IsAbstract
+                select new {Source = i.GetGenericArguments()[0], Destination = t}).ToArray();
 
-            return mapper;
+            foreach (var map in maps) cfg.CreateMap(map.Source, map.Destination);
+        }
+
+        private static void LoadIMapToMappings(IMapperConfigurationExpression cfg, Type[] types)
+        {
+            var maps = (from t in types
+                from i in t.GetInterfaces()
+                where i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapTo<>) && !t.IsAbstract
+                select new {Destination = i.GetGenericArguments()[0], Source = t}).ToArray();
+
+            foreach (var map in maps) cfg.CreateMap(map.Source, map.Destination);
         }
 
         private static MapperConfiguration MapperConfiguration()
@@ -37,38 +54,6 @@ namespace CleanArchitecture.Application.Models
             });
 
             return configuration;
-        }
-
-        private static void Load(IMapperConfigurationExpression cfg, Type[] types)
-        {
-            LoadIMapFromMappings(cfg, types);
-            LoadIMapToMappings(cfg, types);
-        }
-
-        private static void LoadIMapToMappings(IMapperConfigurationExpression cfg, Type[] types)
-        {
-            var maps = (from t in types
-                from i in t.GetInterfaces()
-                where i.IsGenericType && (i.GetGenericTypeDefinition() == typeof(IMapTo<>)) && !t.IsAbstract
-                select new { Destination = i.GetGenericArguments()[0], Source = t }).ToArray();
-
-            foreach (var map in maps)
-            {
-                cfg.CreateMap(map.Source, map.Destination);
-            }
-        }
-
-        private static void LoadIMapFromMappings(IMapperConfigurationExpression cfg, Type[] types)
-        {
-            var maps = (from t in types
-                from i in t.GetInterfaces()
-                where i.IsGenericType && (i.GetGenericTypeDefinition() == typeof(IMapFrom<>)) && !t.IsAbstract
-                select new { Source = i.GetGenericArguments()[0], Destination = t }).ToArray();
-
-            foreach (var map in maps)
-            {
-                cfg.CreateMap(map.Source, map.Destination);
-            }
         }
     }
 }

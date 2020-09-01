@@ -28,7 +28,6 @@ namespace CleanArchitecture.Application.Services
 
             Todo result = await Create(request.ToEntity());
 
-            // TODO AutoMapping
             return result?.ToDetails();
         }
 
