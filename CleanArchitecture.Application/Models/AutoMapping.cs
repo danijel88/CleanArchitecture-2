@@ -2,15 +2,15 @@
 
 namespace CleanArchitecture.Application.Models
 {
-    public static class Mapper
+    public static class AutoMapping
     {
         public static IMapper Mapper()
         {
             MapperConfiguration configuration = AutoMapperConfigurator.MapperConfiguration();
 
-            Mapper mapper = new Mapper(configuration);
+            Mapper autoMapping = new Mapper(configuration);
 
-            return mapper;
+            return autoMapping;
         }
     }
 }

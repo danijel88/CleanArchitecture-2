@@ -35,7 +35,7 @@ namespace CleanArchitecture.Application.Models
             foreach (var map in maps) cfg.CreateMap(map.Source, map.Destination);
         }
 
-        private static MapperConfiguration MapperConfiguration()
+        public static MapperConfiguration MapperConfiguration()
         {
             // Load all Assemblies
             Assembly target = Assembly.GetCallingAssembly();
