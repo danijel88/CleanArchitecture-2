@@ -26,22 +26,10 @@ namespace CleanArchitecture.Application.Services
                 throw new InvalidRequestException();
             }
 
-            // TODO: AutoMapping
-            Todo todo = new Todo
-            {
-                Description = request.Description,
-                Title = request.Title
-            };
-
-            Todo result = await Create(todo);
+            Todo result = await Create(request.ToEntity());
 
             // TODO AutoMapping
-            return new TodoResponseModel
-            {
-                Title = result.Title,
-                Description = result.Description,
-                Id = result.Id
-            };
+            return result?.ToDetails();
         }
 
         public async Task<IValidationResult> Validate(TodoCreateRequestModel request)

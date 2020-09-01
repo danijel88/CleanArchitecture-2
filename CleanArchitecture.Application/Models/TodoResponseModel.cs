@@ -1,8 +1,10 @@
 ﻿using System;
+using CleanArchitecture.Application.CrossCuttingConcerns.Mapping;
+using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Application.Models
 {
-    public class TodoResponseModel
+    public class TodoResponseModel : IMapFrom<Todo>
     {
         public Guid Id { get; set; }
 
