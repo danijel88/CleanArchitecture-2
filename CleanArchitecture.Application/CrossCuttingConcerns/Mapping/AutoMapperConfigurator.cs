@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using AutoMapper;
-using CleanArchitecture.Application.CrossCuttingConcerns.Mapping;
 
-namespace CleanArchitecture.Application.Models
+namespace CleanArchitecture.Application.CrossCuttingConcerns.Mapping
 {
     public static class AutoMapperConfigurator
     {

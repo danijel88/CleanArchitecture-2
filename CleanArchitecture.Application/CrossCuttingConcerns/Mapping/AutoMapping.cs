@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace CleanArchitecture.Application.Models
+namespace CleanArchitecture.Application.CrossCuttingConcerns.Mapping
 {
     public static class AutoMapping
     {
