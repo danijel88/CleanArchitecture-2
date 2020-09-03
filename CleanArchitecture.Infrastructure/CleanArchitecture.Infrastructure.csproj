@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200903122414_TodoProgress.cs" />
+    <Compile Remove="Migrations\20200903122414_TodoProgress.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Lamar" Version="4.3.1" />
     <PackageReference Include="LinqKit" Version="1.1.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
